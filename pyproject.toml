@@ -1,0 +1,67 @@
+[project]
+name = "jurassic-open-world"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Ziga R.", email = "102856773+rziga@users.noreply.github.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "huggingface-hub>=0.35.1",
+    "lightning>=2.5.5",
+    "lvis>=0.5.3",
+    "open-clip-torch>=3.2.0",
+    "pycocotools>=2.0.10",
+    "scipy>=1.15.3",
+    "torch>=2.8.0",
+    "torchvision>=0.23.0",
+    "tqdm>=4.67.1",
+    "transformers>=4.56.2",
+    "wandb>=0.22.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+custom-kernels = [
+    "msda-triton",
+]
+dev = [
+    "faster-coco-eval>=1.6.8",
+    "ipykernel>=6.30.1",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "ruff>=0.13.3",
+]
+
+[tool.uv.sources]
+msda-triton = { git = "https://github.com/rziga/msda-triton.git" }
+
+[tool.ruff]
+target-version = "py310"
+line-length = 79
+exclude = ["tests/*"]
+
+[tool.ruff.lint]
+# I - import sorting
+# W291 - no trailing whitespace
+# W292 - end of file newline
+select = ["I", "W291", "W292"]
+extend-safe-fixes = ["W291", "W292"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+relative-imports-order = "closest-to-furthest"
+known-first-party = ["jurassic_open_world"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

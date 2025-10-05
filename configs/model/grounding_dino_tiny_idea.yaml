@@ -1,0 +1,73 @@
+_type: GroundingDINOConfig
+
+img_backbone_cfg:
+  _type: ImageBackboneConfig
+  backbone_kwargs:
+    out_features: [stage2 , stage3 , stage4]
+  cfg_str: microsoft/swin-tiny-patch4-window7-224
+  emb_dim: 256
+  num_extra_down_projs: 1
+  num_extra_up_projs: 0
+  provider: transformers_auto
+  use_legacy_pos: true
+  use_pretrained: false
+
+img_mean: [0.485, 0.456, 0.406]
+img_std: [0.229, 0.224, 0.225]
+
+txt_backbone_cfg:
+  _type: LegacyTextBackboneConfig
+  backbone_kwargs:
+    add_pooling_layer: false
+  cfg_str: bert-base-uncased
+  emb_dim: 256
+  max_txt_len: null
+  provider: transformers_auto
+  use_pooling: false
+  use_pretrained: false
+
+encoder_cfg:
+  _type: CrossScaleEncoderConfig
+  layer_cfg:
+    _type: CrossScaleEncoderLayerConfig
+    attention_dropout: 0.0
+    dropout: 0.0
+    droppath: 0.0
+    emb_dim: 256
+    emb_dim_fusion: 1024
+    ffn_dim: 2048
+    ffn_dim_txt: 1024
+    num_heads: 8
+    num_heads_fusion: 4
+    num_heads_txt: 4
+    num_levels: 4
+    num_points: 4
+    use_fusion: true
+    use_txt_self_att: true
+  num_layers: 6
+
+query_selector_cfg:
+  _type: QuerySelectorConfig
+  cls_emb_type: grounding_dino
+  emb_dim: 256
+  num_queries: 900
+
+decoder_cfg:
+  _type: DecoderConfig
+  layer_cfg:
+    _type: DecoderLayerConfig
+    attention_dropout: 0
+    cls_emb_type: grounding_dino
+    dropout: 0
+    emb_dim: 256
+    ffn_dim: 2048
+    num_heads: 8
+    num_levels: 4
+    num_points: 4
+    use_fusion: true
+    use_legacy_pos: true
+  num_layers: 6
+  share_bbox_head: true
+  share_cls_head: true
+  share_norm: true
+  share_pos_head: true

@@ -1,0 +1,40 @@
+_type: TextBasedDetectionDataModuleConfig
+
+train_dataset_cfgs:
+- _type: TextBasedDetectionDatasetConfig
+  max_captions: null
+  num_false_captions: 80
+  plugin_cfg:
+    _type: COCODatasetPluginConfig
+    annotation_fpath: /path/to/COCO_2017/annotations/instances_train2017.json
+    mode: train
+    root: /path/to/COCO_2017/train2017/
+  transform_cfg:
+    _type: COCOTransformConfig
+    crop_sizes: [400, 500, 600]
+    img_mean: [0.485, 0.456, 0.406]
+    img_std: [0.229, 0.224, 0.225]
+    max_size: 1024
+    mode: train
+    resize_sizes: [480, 512, 544, 576, 608, 640, 672, 704, 736, 768, 800]
+
+val_dataset_cfgs:
+- _type: TextBasedDetectionDatasetConfig
+  max_captions: null
+  num_false_captions: null
+  plugin_cfg:
+    _type: COCODatasetPluginConfig
+    annotation_fpath: /path/to/COCO_2017/annotations/instances_val2017.json
+    mode: test
+    root: /path/to/COCO_2017/val2017/
+  transform_cfg:
+    _type: COCOTransformConfig
+    crop_sizes: [400, 500, 600]
+    img_mean: [0.485, 0.456, 0.406]
+    img_std: [0.229, 0.224, 0.225]
+    max_size: 1024
+    mode: test
+    resize_sizes: [480, 512, 544, 576, 608, 640, 672, 704, 736, 768, 800]
+
+batch_size: 2
+num_workers: 0
