@@ -49,7 +49,7 @@ from jurassic_open_world.inference.predictor import GroundingDINOPredictor
 
 
 predictor = GroundingDINOPredictor.from_pretrained(
-    "rziga/rziga/grounding_dino_edge_jow", device="cuda:0"
+    "rziga/grounding_dino_edge_jow", device="cuda:0"
 )
 
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
